@@ -4,6 +4,7 @@ info:
   version: "1.0"
 servers:
   - url: https://localhost:3000/
+
 paths:
   /pokemon:
     get:
@@ -29,9 +30,23 @@ paths:
               example:
                 {
                   id: 482,
-                  name: { english: "Azelf", japanese: "アグノム", chinese: "亚克诺姆", french: "Créfadet" },
+                  name:
+                    {
+                      english: "Azelf",
+                      japanese: "アグノム",
+                      chinese: "亚克诺姆",
+                      french: "Créfadet",
+                    },
                   type: ["Psychic"],
-                  base: { HP: 75, Attack: 125, Defense: 70, "Sp. Attack": 125, "Sp. Defense": 70, Speed: 115 },
+                  base:
+                    {
+                      HP: 75,
+                      Attack: 125,
+                      Defense: 70,
+                      "Sp. Attack": 125,
+                      "Sp. Defense": 70,
+                      Speed: 115,
+                    },
                 }
         "400":
           description: Invalid ID. Id must be number.
@@ -62,9 +77,23 @@ paths:
               example:
                 {
                   id: 151,
-                  name: { english: "Mew", japanese: "ミュウ", chinese: "梦幻", french: "Mew" },
+                  name:
+                    {
+                      english: "Mew",
+                      japanese: "ミュウ",
+                      chinese: "梦幻",
+                      french: "Mew",
+                    },
                   type: ["Psychic"],
-                  base: { HP: 100, Attack: 100, Defense: 100, "Sp. Attack": 100, "Sp. Defense": 100, Speed: 100 },
+                  base:
+                    {
+                      HP: 100,
+                      Attack: 100,
+                      Defense: 100,
+                      "Sp. Attack": 100,
+                      "Sp. Defense": 100,
+                      Speed: 100,
+                    },
                 }
         "404":
           description: Pokemon not found with name of {name}
@@ -111,9 +140,23 @@ paths:
                 [
                   {
                     id: 35,
-                    name: { english: "Clefairy", japanese: "ピッピ", chinese: "皮皮", french: "Mélofée" },
+                    name:
+                      {
+                        english: "Clefairy",
+                        japanese: "ピッピ",
+                        chinese: "皮皮",
+                        french: "Mélofée",
+                      },
                     type: ["Fairy"],
-                    base: { HP: 70, Attack: 45, Defense: 48, "Sp. Attack": 60, "Sp. Defense": 65, Speed: 35 },
+                    base:
+                      {
+                        HP: 70,
+                        Attack: 45,
+                        Defense: 48,
+                        "Sp. Attack": 60,
+                        "Sp. Defense": 65,
+                        Speed: 35,
+                      },
                   },
                   // more values ...,
                 ]
@@ -181,9 +224,23 @@ paths:
               example:
                 {
                   id: 242,
-                  name: { english: "Blissey", japanese: "ハピナス", chinese: "幸福蛋", french: "Leuphorie" },
+                  name:
+                    {
+                      english: "Blissey",
+                      japanese: "ハピナス",
+                      chinese: "幸福蛋",
+                      french: "Leuphorie",
+                    },
                   type: ["Normal"],
-                  base: { HP: 255, Attack: 10, Defense: 10, "Sp. Attack": 75, "Sp. Defense": 135, Speed: 55 },
+                  base:
+                    {
+                      HP: 255,
+                      Attack: 10,
+                      Defense: 10,
+                      "Sp. Attack": 75,
+                      "Sp. Defense": 135,
+                      Speed: 55,
+                    },
                 }
         "400":
           description: Invalid HP Filter(s) provided
@@ -194,7 +251,10 @@ paths:
                 properties:
                   error:
                     type: string
-              example: { error: 'Invalid Operator. Must be one of ["gt","gte","lt","lte"]' }
+              example:
+                {
+                  error: 'Invalid Operator. Must be one of ["gt","gte","lt","lte"]',
+                }
 
         "404":
           description: No pokemon found for given filter(s)
