@@ -11,7 +11,6 @@ router.get("/", function (req: Request, res: Response, next: NextFunction): void
 
 /* GET Pokemon by Id. */
 router.get("/:id", function (req: Request, res: Response, next: NextFunction): void {
-  // TODO: Implement this route. See swagger docs for details, by visiting http://localhost:3000/api-docs
   const id: number = Number(req.params.id)
   const pokemon: JsonObject = pokedex.find((poke) => poke.id === id) as JsonObject
   res.json(pokemon);
@@ -20,7 +19,9 @@ router.get("/:id", function (req: Request, res: Response, next: NextFunction): v
 /* GET Pokemon by English Name */
 router.get("/name/:name", function (req: Request, res: Response, next: NextFunction): void {
   // TODO: Implement this route. See swagger docs for details, by visiting http://localhost:3000/api-docs
-  res.status(501).json({ message: "Not Implemented" });
+  const name: string = String(req.params.name)
+  const pokemon: JsonObject = pokedex.find((poke) => poke.name.english.toLowerCase() === name.toLowerCase()) as JsonObject
+  res.json(pokemon)
   return;
 });
 
