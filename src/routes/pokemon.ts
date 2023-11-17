@@ -11,7 +11,7 @@ router.get("/", function (req: Request, res: Response, next: NextFunction): void
 
 /* GET Pokemon by Id. */
 router.get("/:id", function (req: Request, res: Response, next: NextFunction): void {
-  if (!req.query) {
+  if (Object.values(req.query).length === 0) {
     const id: number = Number(req.params.id);
     const pokemon: JsonObject = pokedex.find((poke) => poke.id === id) as JsonObject;
     res.json(pokemon);
@@ -56,7 +56,9 @@ router.get("/hp", function (req: Request, res: Response, next: NextFunction): vo
   } else if (req.query.lte) {
     pokemon = pokedex.filter((poke) => poke.base.HP <= Number(req.query.lte)) as JsonObject[];
   } else {
-    res.status(501).json({ error: "Invalid Operator. Must be one of [\"gt\",\"gte\",\"lt\",\"lte\"]" });
+   // { error: 'Invalid Operator. Must be one of ["gt","gte","lt","lte"]'}
+    res.status(400).json({ error: 'test ["1"]'});
+    return
   }
   res.json(pokemon);
 });
