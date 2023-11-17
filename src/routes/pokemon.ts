@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response, Router } from "express";
 import pokedex from "../db/pokedex.json";
+import { JsonObject } from "swagger-ui-express";
 
 const router = Router();
 
@@ -11,8 +12,9 @@ router.get("/", function (req: Request, res: Response, next: NextFunction): void
 /* GET Pokemon by Id. */
 router.get("/:id", function (req: Request, res: Response, next: NextFunction): void {
   // TODO: Implement this route. See swagger docs for details, by visiting http://localhost:3000/api-docs
-  res.status(501).json({ message: "Not Implemented" });
-  return;
+  const id: number = Number(req.params.id)
+  const pokemon: JsonObject = pokedex.find((poke) => poke.id === id) as JsonObject
+  res.json(pokemon);
 });
 
 /* GET Pokemon by English Name */
