@@ -13,8 +13,16 @@ router.get("/", function (req: Request, res: Response, next: NextFunction): void
 router.get("/:id", function (req: Request, res: Response, next: NextFunction): void {
   if (Object.values(req.query).length === 0) {
     const id: number = Number(req.params.id);
+    if (isNaN(id)) {
+      res.status(400).json({ error: "Invalid ID" });
+      return;
+    }
     const pokemon: JsonObject = pokedex.find((poke) => poke.id === id) as JsonObject;
-    res.json(pokemon);
+    if (!pokemon) {
+      res.status(404).json({ error: "Not found" });
+    } else {
+      res.json(pokemon);
+    }
   } else {
     next();
   }
@@ -26,7 +34,11 @@ router.get("/name/:name", function (req: Request, res: Response, next: NextFunct
   const pokemon: JsonObject = pokedex.find(
     (poke) => poke.name.english.toLowerCase() === name.toLowerCase()
   ) as JsonObject;
-  res.json(pokemon);
+  if (!pokemon) {
+    res.status(404).json({ error: "Not found" });
+  } else {
+    res.json(pokemon);
+  }
 });
 
 /* GET Pokemon by Type */
@@ -37,7 +49,11 @@ router.get("/type/:type", function (req: Request, res: Response, next: NextFunct
   const pokemon: JsonObject[] = pokedex.filter(
     (poke) => poke.type.includes(type) === true
   ) as JsonObject[];
-  res.json(pokemon);
+  if (!pokemon.length) {
+    res.status(400).json({ error: "Bad reqeust" });
+  } else {
+    res.json(pokemon);
+  }
 });
 
 /* GET Pokemon by HP */
@@ -56,9 +72,8 @@ router.get("/hp", function (req: Request, res: Response, next: NextFunction): vo
   } else if (req.query.lte) {
     pokemon = pokedex.filter((poke) => poke.base.HP <= Number(req.query.lte)) as JsonObject[];
   } else {
-   // { error: 'Invalid Operator. Must be one of ["gt","gte","lt","lte"]'}
-    res.status(400).json({ error: 'test ["1"]'});
-    return
+    res.status(400).json({ error: 'Invalid Operator. Must be one of ["gt","gte","lt","lte"]' });
+    return;
   }
   res.json(pokemon);
 });

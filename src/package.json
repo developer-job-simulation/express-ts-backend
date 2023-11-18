@@ -29,7 +29,6 @@
   "prettier": {
     "printWidth": 100,
     "quoteProps": "preserve",
-    "singleQuote": false,
-    "parser": "json5"
+    "singleQuote": false
   }
 }
