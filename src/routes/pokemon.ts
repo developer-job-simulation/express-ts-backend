@@ -50,7 +50,7 @@ router.get("/type/:type", function (req: Request, res: Response, next: NextFunct
     (poke) => poke.type.includes(type) === true
   ) as JsonObject[];
   if (!pokemon.length) {
-    res.status(400).json({ error: "Bad reqeust" });
+    res.status(400).json({ error: "Bad request" });
   } else {
     res.json(pokemon);
   }
