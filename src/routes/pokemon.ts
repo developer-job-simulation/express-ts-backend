@@ -80,7 +80,7 @@ router.get("/hp", function (req, res) {
       (gte === null || hp >= gte)
     );
   });
-  if (!pokemons) return res.status(404).json({ error: "Not found" });
+  if (!pokemons.length) return res.status(404).json({ error: "Not found" });
   return res.json(pokemons);
 });
 
