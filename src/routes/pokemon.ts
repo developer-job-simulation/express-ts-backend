@@ -23,7 +23,6 @@ router.get("/:id", function (req: Request, res: Response, next: NextFunction) {
 
 /* GET Pokemon by English Name */
 router.get("/name/:name", function (req: Request, res: Response, next: NextFunction) {
-	// TODO: Implement this route. See swagger docs for details, by visiting http://localhost:3000/api-docs
 	const result = pokedex.find((pokemon) => {
 		return pokemon.name.english.toLowerCase() === req.params.name;
 	});
@@ -36,10 +35,22 @@ router.get("/name/:name", function (req: Request, res: Response, next: NextFunct
 });
 
 /* GET Pokemon by Type */
-router.get("/type/:type", function (req: Request, res: Response, next: NextFunction): void {
-	// TODO: Implement this route. See swagger docs for details, by visiting http://localhost:3000/api-docs
-	res.status(501).json({ message: "Not Implemented" });
-	return;
+router.get("/type/:type", function (req: Request, res: Response, next: NextFunction) {
+	const result = pokedex.filter((pokemon) => {
+		if (req.params.type) {
+			return pokemon.type
+							.map((type) => type.toLowerCase())
+							.includes(req.params.type);
+		} else {
+			return false;
+		}
+	});
+
+	if (!result) {
+		return res.status(404).json({ message: `No Pokemon found with type: ${req.params.type}` });
+	}
+
+	return res.status(200).json(result);
 });
 
 /* GET Pokemon by HP */
