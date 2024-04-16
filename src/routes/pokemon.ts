@@ -10,12 +10,16 @@ router.get("/", function (req: Request, res: Response, next: NextFunction) {
 
 /* GET Pokemon by Id. */
 router.get("/:id", function (req: Request, res: Response, next: NextFunction) {
+	if (!(typeof req.params.id === "number")) {
+		return res.status(400).json({ error: "Invalid ID" });
+	}
+
 	const result = pokedex.find((pokemon) => {
 		return String(pokemon.id) === req.params.id;
 	});
 
 	if (!result) {
-		return res.status(404).json({ message: `No Pokemon found with id:${req.params.id}` });
+		return res.status(404).json({ error: "Not found" });
 	}
 
 	return res.status(200).json(result);
