@@ -8,9 +8,47 @@ router.get("/", function (req: Request, res: Response, next: NextFunction) {
 	return res.status(200).json(pokedex);
 });
 
+/* GET Pokemon by HP */
+router.get("/hp", function (req: Request, res: Response, next: NextFunction) {
+	// TODO: Implement this route. See swagger docs for details, by visiting http://localhost:3000/api-docs
+	let result = [];
+	
+	if (req.query.gt) {
+		result = pokedex.filter((pokemon) => {
+			// @ts-ignore
+			return pokemon.base.HP > req.query.gt;
+		});
+	} else if (req.query.lt) {
+		result = pokedex.filter((pokemon) => {
+			// @ts-ignore
+			return pokemon.base.HP < req.query.lt;
+		});
+	} else if (req.query.gte) {
+		result = pokedex.filter((pokemon) => {
+			// @ts-ignore
+			return pokemon.base.HP >= req.query.gte;
+		});
+	} else if (req.query.lte) {
+		result = pokedex.filter((pokemon) => {
+			// @ts-ignore
+			return pokemon.base.HP <= req.query.lte;
+		});
+	} else {
+		return res.status(400).json({
+			error: "Invalid Operator. Must be one of [\"gt\",\"gte\",\"lt\",\"lte\"]" 
+		});
+	}
+
+	if (result.length === 0) {
+		return res.status(404).json({ error: "Not found" });
+	}
+
+	return res.status(200).json(result);
+});
+
 /* GET Pokemon by Id. */
 router.get("/:id", function (req: Request, res: Response, next: NextFunction) {
-	if (!(typeof req.params.id === "number")) {
+	if (Number.isNaN(Number(req.params.id))) {
 		return res.status(400).json({ error: "Invalid ID" });
 	}
 
@@ -55,13 +93,6 @@ router.get("/type/:type", function (req: Request, res: Response, next: NextFunct
 	}
 
 	return res.status(200).json(result);
-});
-
-/* GET Pokemon by HP */
-router.get("/hp", function (req: Request, res: Response, next: NextFunction): void {
-	// TODO: Implement this route. See swagger docs for details, by visiting http://localhost:3000/api-docs
-	res.status(501).json({ message: "Not Implemented" });
-	return;
 });
 
 export default router;
