@@ -32,7 +32,7 @@ router.get("/name/:name", function (req: Request, res: Response, next: NextFunct
 	});
 
 	if (!result) {
-		return res.status(404).json({ message: `No Pokemon found with name: ${req.params.name}` });
+		return res.status(404).json({ error: "Not found" });
 	}
 
 	return res.status(200).json(result);
