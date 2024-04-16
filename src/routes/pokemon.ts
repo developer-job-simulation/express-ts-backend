@@ -50,8 +50,8 @@ router.get("/type/:type", function (req: Request, res: Response, next: NextFunct
 		}
 	});
 
-	if (!result) {
-		return res.status(404).json({ message: `No Pokemon found with type: ${req.params.type}` });
+	if (result.length === 0) {
+		return res.status(400).json({ error: "Bad request" });
 	}
 
 	return res.status(200).json(result);
