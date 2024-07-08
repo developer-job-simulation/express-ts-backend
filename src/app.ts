@@ -4,8 +4,7 @@ import logger from "morgan";
 import path from "path";
 import swaggerUi from "swagger-ui-express";
 import YAML from "yamljs";
-const swaggerDocument = YAML.load("./docs/swagger.yaml");
-
+const swaggerDocument = YAML.load("./src/docs/swagger.yaml");
 import indexRouter from "./routes/index";
 import pokemonRouter from "./routes/pokemon";
 
@@ -20,5 +19,6 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/", indexRouter);
 app.use("/pokemon", pokemonRouter);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
 
 export default app;
